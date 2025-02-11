@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-layout="vertical">
+<head>
+
+    <meta charset="utf-8" />
+    <title>Admin Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <script src="assets/js/layout.js"></script>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <style>
+         #sidebar-nav {
+            width: 200px;
+            transition: width 0.3s ease-in-out;
+        }
+
+        @media (max-width: 992px) {
+            #sidebar-nav {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #sidebar-nav {
+                width: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #sidebar-nav {
+                width: 110px;
+            }
+        }
+
+        .sidebar-logo {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar-logo {
+                max-width: 70%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-logo {
+                max-width: 60%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-logo {
+                max-width: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="layout-wrapper">
+
+        <header id="page-topbar">
+    <div class="layout-width">
+        <div class="navbar-header">
+            <div class="d-flex">
+                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger material-shadow-none" id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+
+               
+                
+            </div>
+
+           
+        </div>
+    </div>
+</header>
+        <div class="app-menu navbar-menu">
+            <div class="navbar-brand-box">
+                <a href="#" class="logo logo-dark"> 
+                    <span class="logo-lg">
+                        <h4 class="fw-lighter mt-2">Admin - Online Store</h4>
+                    </span>
+                </a>
+                
+                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                    <i class="ri-record-circle-line"></i>
+                </button>
+            </div>
+    
+            
+            <div id="scrollbar">
+                <div class="container-fluid">
+
+
+                    <div id="two-column-menu">
+                    </div>
+                    <ul class="navbar-nav" id="navbar-nav">
+                        <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarDashboards" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
+                            </a>
+                            
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            
+        </div>
+       
+        <div class="vertical-overlay"></div>
+
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+                                <h4 class="mb-sm-0">Product</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                
+            </div>
+            
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> © All Right Recerved.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+       
+
+    </div>
+  
+
+
+
+    
+
+    <!--preloader-->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+   
+
+    
+
+    <!-- JAVASCRIPT -->
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/node-waves/waves.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+	<script>
+		//data table plugin initialize 
+		let table = new DataTable('#myTable');
+	</script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+</body>
+
+</html>
