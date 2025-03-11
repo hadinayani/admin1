@@ -2,11 +2,12 @@ import Menu from "./menu";
 import SiteTitle from "./siteTitle";
 import $ from "jquery";
 import "datatables.net";
+import { Link } from "react-router";
 
 export default function ViewOrder() {
     return (
         <main className="main-content-wrapper">
-        <SiteTitle title="View Order" />
+            <SiteTitle title="View Order" />
             <div className="container">
                 <div className="row mb-8">
                     <div className="col-md-12">
@@ -31,9 +32,10 @@ export default function ViewOrder() {
                                     Date :- 12-2-2025
                                     {/* <Link to="/orders/print" className="btn btn-success">Print</Link> */}
                                 </h3>
+                                <Link to="/orders" className="btn btn-info">Back</Link>
                             </div>
                             <div className="card-body">
-                                <table className="table table-bordered mb-3">
+                                <table className="table table-responsive table-bordered mb-3">
                                     <tbody ><tr>
                                         <th className="text-black">ID</th>
                                         <td>123</td>
@@ -53,10 +55,10 @@ export default function ViewOrder() {
                                             <td>Delivered</td>
 
                                         </tr>
-                                        
+
                                         <tr>
-                                        <th className="text-black">No Of Item</th>
-                                        <td>10</td>
+                                            <th className="text-black">No Of Item</th>
+                                            <td>10</td>
                                         </tr>
                                     </tbody></table>
                                 <h3 className="mb-3">items</h3>
@@ -67,16 +69,16 @@ export default function ViewOrder() {
                                             <th className="text-black">Name</th>
                                             <th className='text-end text-black'>Quantity</th>
                                             <th className='text-end text-black'>Price</th>
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                            <tr>
-                                                <td>123</td>
-                                                <td>P name</td>
-                                                <td className="text-end">10</td>
-                                                <td className="text-end">100</td>
-                                            </tr>
+                                        <tr>
+                                            <td>123</td>
+                                            <td>P name</td>
+                                            <td className="text-end">10</td>
+                                            <td className="text-end">100</td>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>

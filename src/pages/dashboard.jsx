@@ -1,6 +1,31 @@
-import Menu from "./menu"
+import { useState,useEffect } from "react"
 import SiteTitle from "./siteTitle"
+import { getBase } from "./common";
+import axios from "axios";
+import { showError, showNetworkError } from "./message";
 export default function Dashboard() {
+    let [dashboard, setDashboard] = useState([]);
+    let api = getBase() + "summery.php";
+    useEffect(() =>{
+        axios({
+            url: api,
+            responseType:'json',
+            method:'get'
+        }).then((response) => {
+            console.log(response.data);
+
+            let error = response.data[0]['error'];
+            if(error === 'no'){
+                setDashboard(response.data[1]);
+            }
+            else
+            {
+                showError("No found");
+            }
+        }).catch((error) =>{
+            showNetworkError(error);
+        })
+    });
     return (
         <main className="main-content-wrapper">
                 <SiteTitle title="Admin Dashboard" />
@@ -14,16 +39,15 @@ export default function Dashboard() {
                                     {/* heading */}
                                     <div className="d-flex justify-content-between align-items-center mb-6">
                                         <div>
-                                            <h4 className="mb-0 fs-5">Earnings</h4>
+                                            <h4 className="mb-0 fs-5">Categories</h4>
                                         </div>
                                         <div className="icon-shape icon-md bg-light-danger text-dark-danger rounded-circle">
-                                            <i className="bi bi-currency-dollar fs-5" />
+                                            <i className="bi bi-tag fs-5" />
                                         </div>
                                     </div>
                                     {/* project number */}
                                     <div className="lh-1">
-                                        <h1 className="mb-2 fw-bold fs-2">$93,438.78</h1>
-                                        <span>Monthly revenue</span>
+                                        <h1 className="mb-2 fw-bold fs-2">{dashboard.categories}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -44,11 +68,7 @@ export default function Dashboard() {
                                     </div>
                                     {/* project number */}
                                     <div className="lh-1">
-                                        <h1 className="mb-2 fw-bold fs-2">42,339</h1>
-                                        <span>
-                                            <span className="text-dark me-1">35+</span>
-                                            New Sales
-                                        </span>
+                                        <h1 className="mb-2 fw-bold fs-2">{dashboard.orders}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +81,7 @@ export default function Dashboard() {
                                     {/* heading */}
                                     <div className="d-flex justify-content-between align-items-center mb-6">
                                         <div>
-                                            <h4 className="mb-0 fs-5">Customer</h4>
+                                            <h4 className="mb-0 fs-5">Users</h4>
                                         </div>
                                         <div className="icon-shape icon-md bg-light-info text-dark-info rounded-circle">
                                             <i className="bi bi-people fs-5" />
@@ -69,11 +89,8 @@ export default function Dashboard() {
                                     </div>
                                     {/* project number */}
                                     <div className="lh-1">
-                                        <h1 className="mb-2 fw-bold fs-2">39,354</h1>
-                                        <span>
-                                            <span className="text-dark me-1">30+</span>
-                                            new in 2 days
-                                        </span>
+                                        <h1 className="mb-2 fw-bold fs-2">{dashboard.users}</h1>
+                                
                                     </div>
                                 </div>
                             </div>

@@ -2,11 +2,69 @@ import Menu from "./menu";
 import SiteTitle from "./siteTitle";
 import $ from "jquery";
 import "datatables.net";
+import axios from 'axios';
+import { getBase, getImageBase } from "./common";
+import { ToastContainer } from "react-toastify";
+import { showError, showNetworkError, showMessage } from "./message";
+import { useEffect, useState } from "react";
 
 export default function Users() {
+
+    let [user, setUsers] = useState([]);
+    let api = getBase() + "users.php";
+
+    useEffect(() => {
+
+        if (user.length === 0) {
+            axios({
+                url: api,
+                responseType: 'json',
+                method: 'get',
+            }).then((response) => {
+                console.log(response.data);
+
+                let error = response.data[0]['error'];
+                let total = response.data[1]['total'];
+
+                if (error === 'no') {
+                    if (total === 0) {
+                        showError("No users found");
+                    } else {
+                        response.data.splice(0, 2);
+                        setUsers(response.data);
+                    }
+                }
+            })
+        }
+        else {
+            $("#myTable").DataTable();
+        }
+    })
+
+    let displayUsers = (user) => {
+        return (
+            <tr>
+
+
+                <td><span className="text-reset">{user.id}</span></td>
+                <td>
+                    <span className="text-reset">Customer Name</span>
+                </td>
+
+                <td>
+                    <span className="text-reset">{user.email}</span>
+                </td>
+                <td>
+                    <span className="text-reset">{user.mobile}</span>
+                </td>
+
+            </tr>
+        )
+    }
+
     return (
         <main className="main-content-wrapper">
-            <SiteTitle title="View User" />
+            <SiteTitle title="Users" />
             <div className="container">
                 <div className="row mb-8">
                     <div className="col-md-12">
@@ -40,25 +98,7 @@ export default function Users() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-
-
-                                                <td><span className="text-reset">123</span></td>
-                                                <td>
-                                                    {/* <a href="" data-fancybox="gallery" data-caption="Sample Title">
-                                                        <img src="/category image" alt="this is category" />
-                                                    </a> */}
-                                                    <span className="text-reset">Customer Name</span>
-                                                </td>
-
-                                                <td>
-                                                    <span className="text-reset">abv@gmail.com</span>
-                                                </td>
-                                                <td>
-                                                    <span className="text-reset">1234567890</span>
-                                                </td>
-
-                                            </tr>
+                                        {user.map((i)=> displayUsers(i))}
 
                                         </tbody>
                                     </table>

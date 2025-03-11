@@ -72,13 +72,13 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="category" element={<Category />} />
           <Route path="category/add" element={<AddCategory />} />
-          <Route path="category/edit" element={<EditCategory />} />
+          <Route path="category/edit/:id" element={<EditCategory />} />
           <Route path="products" element={<Products />} />
           <Route path="products/add" element={<AddProduct />} />
           <Route path="products/edit" element={<EditProduct />} />
-          <Route path="products/view" element={<ViewProduct />} />
+          <Route path="products/view/:id" element={<ViewProduct />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="orders/view" element={<ViewOrder />} />
+          <Route path="orders/view/:id" element={<ViewOrder />} />
           <Route path="users" element={<Users />} />
           <Route path="change-password" element={<ChangePassword />} />
         </Route>

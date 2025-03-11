@@ -1,9 +1,70 @@
-import Menu from "./menu";
 import SiteTitle from "./siteTitle";
 import $ from "jquery";
 import "datatables.net";
+import axios from 'axios';
+import { getBase, getImageBase } from "./common";
+import { showError, showNetworkError, showMessage } from "./message";
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 export default function Orders() {
+
+    let [order, setOrders] = useState([]);
+    let api = getBase() + "orders.php";
+
+    useEffect(() => {
+        if (order.length === 0) {
+            axios({
+                url: api,
+                responseType: 'json',
+                method: 'get',
+            }).then((response) => {
+                console.log(response.data);
+                let error = response.data[0]['error'];
+                let total = response.data[1]['total'];
+
+                if (error === 'no') {
+                    if (total === 0) {
+                        showMessage("No Orders Found");
+                    } else {
+
+                        response.data.splice(0, 2);
+                        setOrders(response.data);
+                    }
+                }
+            }).catch((error) => {
+                showError(error);
+            })
+        }
+        else {
+            $('#myTable').DataTable();
+        }
+    })
+
+    let displayOrders = function (item) {
+        return (
+            <tr>
+
+
+                <td><span className="text-reset">{item.id}</span></td>
+                <td>
+                    <span className="text-reset">{item.fullname}</span>
+                </td>
+
+                <td>
+                    <span className="text-reset">{item.billdate}</span>
+                </td>
+                <td>
+                    <span className="text-reset">{item.amount}</span>
+                </td>
+                <td>
+                    <Link to={"/orders/view/" + item.id} className="btn btn-light btn-sm"><i class="fa-solid fa-eye"></i> Detail</Link>
+                </td>
+            </tr>
+
+        )
+    }
+
     return (
         <main className="main-content-wrapper">
             <SiteTitle title="View Orders" />
@@ -36,36 +97,11 @@ export default function Orders() {
                                                 <th>Name</th>
                                                 <th>Date</th>
                                                 <th>Amount</th>
-                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-
-
-                                                <td><span className="text-reset">123</span></td>
-                                                <td>
-                                                    {/* <a href="" data-fancybox="gallery" data-caption="Sample Title">
-                                                        <img src="/category image" alt="this is category" />
-                                                    </a> */}
-                                                    <span className="text-reset">Customer Name</span>
-                                                </td>
-
-                                                <td>
-                                                    <span className="text-reset">12-2-2025</span>
-                                                </td>
-                                                <td>
-                                                    <span className="text-reset">10000</span>
-                                                </td>
-                                                <td>
-                                                    <span className="badge bg-light-primary text-dark-primary">Delivered</span>
-                                                </td>
-                                                <td>
-                                                    <button className="btn btn-light btn-sm"><i class="fa-solid fa-eye"></i> Detail</button>
-                                                </td>
-                                            </tr>
-
+                                            {order.map((item) => displayOrders(item))}
                                         </tbody>
                                     </table>
                                 </div>
