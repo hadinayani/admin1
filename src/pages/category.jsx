@@ -15,12 +15,13 @@ export default function Category() {
     let [category, setCategories] = useState([]);
     useEffect(() => {
         if (category.length === 0) {
-            let api = getBase() + "category.php";
+            let api = "http://localhost:5000/category";
 
             axios({
                 url: api,
                 method: 'get',
                 responseType: 'json',
+                headers: 'application/json'
             }).then((response) => {
                 console.log(response.data);
                 let e = response.data[0]['error'];
@@ -44,11 +45,12 @@ export default function Category() {
     });
     let deleteCategory = function (iID) {
         // alert(iID);
-        let api = getBase() + "delete_category.php?id=" + iID;
+        let api = "http://localhost:5000/category/" + iID;
         axios({
             url: api,
             method: 'get',
             responseType: 'json',
+            headers: "appication/json"
         }).then((response) => {
             console.log(response.data);
             let error = response.data[0]['error'];
@@ -57,10 +59,10 @@ export default function Category() {
             }
             else {
                 let temp = category.filter((item) => {
-                    if(item.id !== iID){
-                        return item 
+                    if (item.id !== iID) {
+                        return item
                     }
-             
+
                 });
                 // console.log(temp);
                 setCategories(temp);
@@ -72,29 +74,29 @@ export default function Category() {
     }
 
     let Display = function (i) {
+        const formattedDate = new Date(i.created_at).toLocaleDateString();
         return (
+
             <tr>
 
                 <td>{i.id}</td>
-                <td><span className="text-reset">{i.title}</span></td>
+                <td><span className="text-reset">{i.name}</span></td>
                 <td>
                     <a href={getImageBase() + "category/" + i.photo} data-fancybox="gallery" data-caption={i.title} >
                         <img src={getImageBase() + "category/" + i.photo} alt={i.title} style={{ "maxWidth": "80px" }} />
                     </a>
                 </td>
+                <td><span className="text-reset">{formattedDate}</span></td>
                 <td>
-                    {(i.islive === '1') ? <span className="badge bg-light-primary text-dark-primary">Published</span> : <span className="badge bg-light-danger text-dark-danger">Unpublished</span>}
-                </td>
-                <td>
-                    <Link to={"/category/edit/"+ i.id} className="btn btn-warning btn-sm ms-1"><i class="fa-solid fa-pen-to-square"></i> Edit</Link>
-                    <button className="btn btn-danger btn-sm ms-1" onClick={() => deleteCategory(i.id)}><i class="fa-solid fa-trash"></i> Delete</button>
+                    <Link to={"/category/edit/" + i.id} className="btn btn-warning btn-sm ms-1"><i class="fa-solid fa-pen-to-square"></i> Edit</Link>
+                    <button className="btn btn-danger btn-sm ms-1" onClick={(e) => deleteCategory(i.id)} ><i class="fa-solid fa-trash"></i> Delete</button>
                 </td>
             </tr>
 
         );
     }
 
-   
+
 
     return (
         <>
@@ -117,7 +119,7 @@ export default function Category() {
                                 </div>
 
                                 <div>
-                                    <Link to="/category/add" className="btn btn-info">Add New Category</Link>
+                                    <Link to="/category/add" className="btn btn-primary">Add New Category</Link>
                                 </div>
                             </div>
                         </div>
@@ -137,12 +139,73 @@ export default function Category() {
                                                     <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Photo</th>
-                                                    <th>Status</th>
+                                                    <th>Created At</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {category.map((i) => Display(i))}
+                                               
+                                                {/* <tr>
+
+                                                    <td>1</td>
+                                                    <td><span className="text-reset">Fire Crackers</span></td>
+                                                    <td>
+                                                        <a href={getImageBase() + "category/" + i.photo} data-fancybox="gallery" data-caption={i.title} >
+                                                        <img src="images/fire crackers.jpeg" alt="" style={{ "maxWidth": "80px" }} />
+                                                        </a>
+                                                    </td>
+                                                    <td><span className="text-reset">26/02/2025</span></td>
+                                                    <td>
+                                                        <Link to={"/category/edit/"} className="btn btn-warning btn-sm ms-1"><i class="fa-solid fa-pen-to-square"></i> Edit</Link>
+                                                        <button className="btn btn-danger btn-sm ms-1" onClick={(e) => deleteCategory()} ><i class="fa-solid fa-trash"></i> Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td>2</td>
+                                                    <td><span className="text-reset">Sweets</span></td>
+                                                    <td>
+                                                        <a href={getImageBase() + "category/" + i.photo} data-fancybox="gallery" data-caption={i.title} >
+                                                        <img src="images/sweets.jpg" alt="" style={{ "maxWidth": "80px" }} />
+                                                        </a>
+                                                    </td>
+                                                    <td><span className="text-reset">27/02/2025</span></td>
+                                                    <td>
+                                                        <Link to={"/category/edit/"} className="btn btn-warning btn-sm ms-1"><i class="fa-solid fa-pen-to-square"></i> Edit</Link>
+                                                        <button className="btn btn-danger btn-sm ms-1" onClick={(e) => deleteCategory()} ><i class="fa-solid fa-trash"></i> Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td>3</td>
+                                                    <td><span className="text-reset">Holi Colors</span></td>
+                                                    <td>
+                                                        <a href={getImageBase() + "category/" + i.photo} data-fancybox="gallery" data-caption={i.title} >
+                                                        <img src="images/holi.jpeg" alt="" style={{ "maxWidth": "80px" }} />
+                                                        </a>
+                                                    </td>
+                                                    <td><span className="text-reset">02/03/2025</span></td>
+                                                    <td>
+                                                        <Link to={"/category/edit/"} className="btn btn-warning btn-sm ms-1"><i class="fa-solid fa-pen-to-square"></i> Edit</Link>
+                                                        <button className="btn btn-danger btn-sm ms-1" onClick={(e) => deleteCategory()} ><i class="fa-solid fa-trash"></i> Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td>4</td>
+                                                    <td><span className="text-reset">Kites & Threads</span></td>
+                                                    <td>
+                                                        <a href={getImageBase() + "category/" + i.photo} data-fancybox="gallery" data-caption={i.title} >
+                                                        <img src="images/kites.png" alt="" style={{ "maxWidth": "80px" }} />
+                                                        </a>
+                                                    </td>
+                                                    <td><span className="text-reset">02/03/2025</span></td>
+                                                    <td>
+                                                        <Link to={"/category/edit/"} className="btn btn-warning btn-sm ms-1"><i class="fa-solid fa-pen-to-square"></i> Edit</Link>
+                                                        <button className="btn btn-danger btn-sm ms-1" onClick={(e) => deleteCategory()} ><i class="fa-solid fa-trash"></i> Delete</button>
+                                                    </td>
+                                                </tr> */}
                                             </tbody>
                                         </table>
                                     </div>

@@ -10,33 +10,39 @@ export default function ViewProduct() {
     // get id using useParams
     let { id } = useParams();
     let [product, setProduct] = useState(null);
-    let api = getBase() + "product.php?productid=" + id;
+    let api = "http://localhost:5000/products?id=" + id;
 
-    if (product === null) {
-        axios({
-            url: api,
-            method: 'get',
-            responseType: 'json',
-        }).then((response) => {
-            let error = response.data[0]['error'];
-            let total = response.data[1]['total'];
-            if (error === 'no') {
-                if (total === 0) {
-                    showError("No product detail found");
+    useEffect(() => {
+        if (product === null) {
+            axios({
+                url: api,
+                method: 'get',
+                responseType: 'json',
+                headers:'application/json'
+            }).then((response) => {
+                console.log(response.data);
+                let error = response.data[0]['error'];
+                let total = response.data[1]['total'];
+                if (error === 'no') {
+                    if (total === 0) {
+                        showError("No product detail found");
+                    }
+                    else {
+                        response.data.splice(0, 2);
+                        setProduct(response.data[0]);
+                    }
                 }
-                else {
-                    response.data.splice(0, 2);
-                    setProduct(response.data[0]);
-                }
-            }
-        }).catch((error) => {
-            showNetworkError(error);
-        })
-    }
+            }).catch((error) => {
+                showNetworkError(error);
+            })
+        }
+    })
 
     return (
-        (product === null)?"":<main className="main-content-wrapper">
-        <SiteTitle title= {product.title.toUpperCase()} />
+        
+        (product === null)?"":
+        <main className="main-content-wrapper">
+        <SiteTitle title= {product.name.toUpperCase()} />
 
 
         <div className="container">
@@ -59,8 +65,8 @@ export default function ViewProduct() {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header text-bg-light d-flex justify-content-between">
-                            <h3 className="mb-0">{product.title.toUpperCase()} </h3>
-                            <Link to="/products" className="btn btn-info">Back</Link>
+                            <h3 className="mb-0">{product.name.toUpperCase()} </h3>
+                            <Link to="/products" className="btn btn-primary">Back</Link>
                         </div>
                         <div className="card-body">
                             <div className="row">
@@ -76,7 +82,7 @@ export default function ViewProduct() {
                                         </tr>
                                             <tr>
                                                 <td width="25%" className="fw-bold">Category</td>
-                                                <td>{product.categorytitle.toUpperCase()}</td>
+                                                <td>{product.category_name.toUpperCase()}</td>
                                             </tr>
                                             <tr>
                                                 <td width="25%" className="fw-bold">Price</td>
@@ -92,20 +98,60 @@ export default function ViewProduct() {
                                             </tr>
                                             <tr>
                                                 <td width="25%" className="fw-bold">Detail</td>
-                                                <td>{product.detail}</td>
+                                                <td>{product.description}</td>
                                             </tr>
-                                            <tr>
-                                                <td width="25%" className="fw-bold">is Live</td>
-                                                <td>
-                                                    {(product.islive === '1')?"Yes":"no"}
-                                                </td>
-                                            </tr>
+                                           
                                         </tbody></table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                 {/* <div className="col-12">
+                    <div className="card">
+                        <div className="card-header text-bg-light d-flex justify-content-between">
+                            <h3 className="mb-0">KAJU KATRI</h3>
+                            <Link to="/products" className="btn btn-primary">Back</Link>
+                        </div>
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-3">
+                                    <p>Photo</p>
+                                    <img src="/images/Kaju_katli.jpg" alt="photo" className="img-fluid" />
+                                </div>
+                                <div className="col-9">
+                                    <table className="table table-sm table-bordered table-striped">
+                                        <tbody><tr>
+                                            <td width="25%" className="fw-bold">Id</td>
+                                            <td>1</td>
+                                        </tr>
+                                            <tr>
+                                                <td width="25%" className="fw-bold">Category</td>
+                                                <td>SWEETS</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%" className="fw-bold">Price</td>
+                                                <td>400</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%" className="fw-bold">Weight</td>
+                                                <td>500 GM</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%" className="fw-bold">Stock</td>
+                                                <td>10</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%" className="fw-bold">Detail</td>
+                                                <td>Weight : 500G, Price: &#8377;400</td>
+                                            </tr>
+                                           
+                                        </tbody></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> */}
             </div>
         </div>
     </main>

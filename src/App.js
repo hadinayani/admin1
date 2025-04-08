@@ -67,7 +67,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index element={<Login />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="forgotpassword" element={<ForgotPassword />} />
         <Route path="/" element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="category" element={<Category />} />
@@ -75,7 +75,7 @@ function App() {
           <Route path="category/edit/:id" element={<EditCategory />} />
           <Route path="products" element={<Products />} />
           <Route path="products/add" element={<AddProduct />} />
-          <Route path="products/edit" element={<EditProduct />} />
+          <Route path="products/edit/:id" element={<EditProduct />} />
           <Route path="products/view/:id" element={<ViewProduct />} />
           <Route path="orders" element={<Orders />} />
           <Route path="orders/view/:id" element={<ViewOrder />} />

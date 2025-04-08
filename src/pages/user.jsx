@@ -47,9 +47,7 @@ export default function Users() {
 
 
                 <td><span className="text-reset">{user.id}</span></td>
-                <td>
-                    <span className="text-reset">Customer Name</span>
-                </td>
+
 
                 <td>
                     <span className="text-reset">{user.email}</span>
@@ -66,9 +64,10 @@ export default function Users() {
         <main className="main-content-wrapper">
             <SiteTitle title="Users" />
             <div className="container">
+                <ToastContainer />
                 <div className="row mb-8">
                     <div className="col-md-12">
-                        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
+                        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center ">
 
                             <div>
                                 <h2>Users List</h2>
@@ -94,12 +93,44 @@ export default function Users() {
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Phone</th>
-
+                                                <th>Accont Created At</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {user.map((i)=> displayUsers(i))}
+                                            {/* {user.map((i)=> displayUsers(i))} */}
 
+
+                                            <tr>
+
+
+                                                <td><span className="text-reset">1</span></td>
+
+                                                <td><span className="text-reset">Karan Mehta</span></td>
+                                                <td>
+                                                    <span className="text-reset">karan44@gmail.com</span>
+                                                </td>
+                                                <td>
+                                                    <span className="text-reset">1234567890</span>
+                                                </td>
+                                                <td>
+                                                    <span className="text-reset">20/02/2025</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><span className="text-reset">2</span></td>
+                                                <td><span className="text-reset">John Deo</span></td>
+                                                <td><span className="text-reset">johndoe@gmail.com</span></td>
+                                                <td><span className="text-reset">9876543210</span></td>
+                                                <td><span className="text-reset">03/03/2025</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span className="text-reset">3</span></td>
+                                                <td><span className="text-reset">Jane Smith</span></td>
+                                                <td><span className="text-reset">janesmith@gmail.com</span></td>
+                                                <td><span className="text-reset">4785412350</span></td>
+                                                <td><span className="text-reset">20/03/2025</span></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

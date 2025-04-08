@@ -6,11 +6,12 @@ import { getBase, getImageBase } from "./common";
 import { showError, showNetworkError, showMessage } from "./message";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { ToastContainer } from "react-toastify";
 
 export default function Orders() {
 
     let [order, setOrders] = useState([]);
-    let api = getBase() + "orders.php";
+    let api = "http://localhost:5000/orders"
 
     useEffect(() => {
         if (order.length === 0) {
@@ -18,6 +19,7 @@ export default function Orders() {
                 url: api,
                 responseType: 'json',
                 method: 'get',
+                headers: 'application/json'
             }).then((response) => {
                 console.log(response.data);
                 let error = response.data[0]['error'];
@@ -42,17 +44,18 @@ export default function Orders() {
     })
 
     let displayOrders = function (item) {
+        const formattedDate = new Date(item.orderDate).toLocaleDateString();
         return (
             <tr>
 
 
                 <td><span className="text-reset">{item.id}</span></td>
                 <td>
-                    <span className="text-reset">{item.fullname}</span>
+                    <span className="text-reset">{item.customer_name}</span>
                 </td>
 
                 <td>
-                    <span className="text-reset">{item.billdate}</span>
+                    <span className="text-reset">{formattedDate}</span>
                 </td>
                 <td>
                     <span className="text-reset">{item.amount}</span>
@@ -69,6 +72,7 @@ export default function Orders() {
         <main className="main-content-wrapper">
             <SiteTitle title="View Orders" />
             <div className="container">
+                <ToastContainer />
                 <div className="row mb-8">
                     <div className="col-md-12">
                         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
@@ -102,6 +106,39 @@ export default function Orders() {
                                         </thead>
                                         <tbody>
                                             {order.map((item) => displayOrders(item))}
+
+
+                                            {/* <tr>
+
+
+                                                <td><span className="text-reset">1</span></td>
+                                                <td>
+                                                    <span className="text-reset">Karan Mehta</span>
+                                                </td>
+
+                                                <td>
+                                                    <span className="text-reset">02/03/2025</span>
+                                                </td>
+                                                <td>
+                                                    <span className="text-reset">&#8377;800</span>
+                                                </td>
+                                                <td>
+                                                <Link to="/orders/view/2" className="btn btn-outline-primary btn-sm">
+                                                        <i className="fa-solid fa-eye"></i> View
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span className="text-reset">2</span></td>
+                                                <td><span className="text-reset">Jane Smith</span></td>
+                                                <td><span className="text-reset">24/03/2025</span></td>
+                                                <td><span className="text-reset">&#8377;350</span></td>
+                                                <td>
+                                                    <Link to="/orders/view/2" className="btn btn-outline-primary btn-sm">
+                                                        <i className="fa-solid fa-eye"></i> View
+                                                    </Link>
+                                                </td>
+                                            </tr> */}
                                         </tbody>
                                     </table>
                                 </div>

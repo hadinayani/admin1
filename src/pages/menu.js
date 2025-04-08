@@ -26,7 +26,7 @@ export default function Menu() {
                     <div className="navbar-vertical">
                         <div className="px-4 py-5">
                             {/* <a href="../index.html" className="navbar-brand">
-                            <img src="theme/assets/images/logo/freshcart-logo.svg" alt />
+                            <img src="theme/assets/images/logo/QuikBook-logo.svg" alt />
                         </a> */}
                             <h3 className="fw-bolder">Admin</h3>
                         </div>
@@ -109,7 +109,7 @@ export default function Menu() {
                     <div className="navbar-vertical">
                         <div className="px-4 py-5 d-flex justify-content-between align-items-center">
                             {/* <a href="../index.html" className="navbar-brand">
-                            <img src="../assets/images/logo/freshcart-logo.svg" alt />
+                            <img src="../assets/images/logo/QuikBook-logo.svg" alt />
                         </a> */}
                             <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" />
                         </div>

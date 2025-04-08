@@ -19,10 +19,10 @@ export function showError(message) {
 export function showNetworkError(error) {
     //catch block will execute if server does not responed. 
     //error is one type of object. it has information about error
-    console.log(error);
+    // console.log(error);
     if (error.code === 'ERR_NETWORK') {
         showError('it seems you are offline or server is offline.');
     }
-    else 
+    else
         showError('oops something went wrong. please try after sometimes...');
 }
